@@ -29,6 +29,11 @@ def main() -> int:
     if len(text.split()) != 1:
         print("gate failed: not a single word", file=sys.stderr)
         return 1
+    if not text.isalpha():
+        # A one-word entry must be one word, not a token with digits
+        # or punctuation smuggled in: the judge reads it in one beat.
+        print("gate failed: word is not letters only", file=sys.stderr)
+        return 1
 
     out_path = "/output/entry.txt"
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
